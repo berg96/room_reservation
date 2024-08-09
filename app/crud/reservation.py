@@ -54,5 +54,16 @@ class CRUDReservation(CRUDBase[
             ))
         ).scalars().all()
 
+    async def get_by_user(
+        self,
+        user: int,
+        session: AsyncSession,
+    ):
+        return (
+            await session.execute(select(Reservation).where(
+                Reservation.user_id == user.id
+            ))
+        ).scalars().all()
+
 
 reservation_crud = CRUDReservation(Reservation)
